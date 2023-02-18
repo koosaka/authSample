@@ -1,7 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  <div>ここがログインページ</div>
 </template>
