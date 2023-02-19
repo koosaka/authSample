@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AuthProperty, UserProperty } from "~~/composables/useAuth";
 import FormInput from "../../src/components/molucules/formInput.vue";
+import Button from "../../src/components/atom/button.vue";
 import "~/assets/scss/form.scss";
 
 const { signUp } = useAuth();
@@ -106,18 +107,19 @@ const registerUser = async () => {
         @changeEvent="auth.password = $event"
       />
       <div>
-        <a href="https://menherasenpai.notion.site">利用規約</a
+        <NuxtLink to="https://menherasenpai.notion.site" class="link"
+          >利用規約</NuxtLink
         >をご確認頂き、利用規約に同意するボタンをクリックしてください。
       </div>
       <div class="flex">
         <input id="agreement" type="checkbox" v-model="user.is_agreement" />
         <label for="agreement">利用規約に同意する</label>
       </div>
-      <button class="register_button" type="submit" @click="registerUser()">
-        アカウントを作成する
-      </button>
+      <Button :text="'アカウントを作成する'" @click="registerUser" />
       <div>
-        アカウントを既にお持ちの方は<NuxtLink to="/login">こちら</NuxtLink>から
+        アカウントを既にお持ちの方は<NuxtLink to="/login" class="link"
+          >こちら</NuxtLink
+        >から
       </div>
     </div>
   </div>
@@ -133,18 +135,5 @@ const registerUser = async () => {
 .flex {
   display: flex;
   gap: 0px 4px;
-}
-
-.register_button {
-  color: #fff;
-  background-color: #fd5750;
-  height: 48px;
-  min-width: 90px;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 6px 16px;
-  border: none;
-  border-radius: 4px;
-  text-transform: lowercase;
 }
 </style>

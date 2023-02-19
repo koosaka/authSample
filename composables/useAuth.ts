@@ -109,7 +109,6 @@ export const useAuth = () => {
             user
               .getIdToken()
               .then((idtoken) => {
-                console.log(idtoken);
                 token.value = idtoken;
                 resolve();
               })
