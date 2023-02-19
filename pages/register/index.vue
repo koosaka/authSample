@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+const { signUp } = useAuth();
+
 const user = reactive({
   name: "",
   email: "",
@@ -7,12 +9,7 @@ const user = reactive({
 });
 
 const submit = async () => {
-  const auth = getAuth();
-  const response = await createUserWithEmailAndPassword(
-    auth,
-    user.email,
-    user.password
-  );
+  signUp(user.email, user.password);
 };
 </script>
 

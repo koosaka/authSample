@@ -3,10 +3,28 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 export const useAuth = () => {
   const token = useState<string | null>("token", () => null);
+
+  async function signUp(email: string, password: string) {
+    const auth = getAuth();
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      response.user.getIdToken().then((idToken) => {
+        token.value = idToken;
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   async function signIn(email: string, password: string) {
     return await new Promise<void>((resolve, reject) => {
@@ -68,6 +86,7 @@ export const useAuth = () => {
   }
 
   return {
+    signUp,
     signIn,
     signOut,
     token,
