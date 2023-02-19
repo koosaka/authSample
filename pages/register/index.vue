@@ -53,4 +53,7 @@ const registerUser = async () => {
   <input id="agreement" type="checkbox" v-model="user.is_agreement" />
   <label for="agreement">利用規約に同意する</label>
   <button type="submit" @click="registerUser()">送信</button>
+  <div>
+    アカウントを既にお持ちの方は<NuxtLink to="/login">こちら</NuxtLink>から
+  </div>
 </template>

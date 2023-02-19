@@ -31,6 +31,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <button @click="onClick()">ログ</button>
   <div>ようこそ、{{ user.user_name }}さん！</div>
+  <div>あなたの登録情報はこちらです。</div>
+  <div>アイコン：{{ user.profile_icon }}</div>
+  <div>ユーザネーム：{{ user.user_name }}</div>
+  <div>性別：{{ user.gender }}</div>
+  <div>誕生日：{{ user.birthday }}</div>
 </template>
