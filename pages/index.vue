@@ -16,10 +16,14 @@ definePageMeta({
 });
 
 const firebaseApp = useState("firebaseApp");
+const { getCurrentUserUid } = useAuth();
+const currentUserUid = getCurrentUserUid();
+const user = reactive({});
 
 const onClick = async () => {
   const db: Firestore = getFirestore(firebaseApp.value as FirebaseApp);
 
+  console.log(getCurrentUserUid());
   const q = query(collection(db, "users"));
   const querySnapshot = await getDocs(q);
   const users = querySnapshot.docs.map((doc) => {
@@ -31,5 +35,5 @@ const onClick = async () => {
 
 <template>
   <button @click="onClick()">ログ</button>
-  <div>ここがトップページ</div>
+  <div>ようこそ！</div>
 </template>

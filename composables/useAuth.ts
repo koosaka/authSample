@@ -9,6 +9,17 @@ import {
 export const useAuth = () => {
   const token = useState<string | null>("token", () => null);
 
+  function getCurrentUserUid() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user !== null) {
+      return user.uid;
+    } else {
+      return {};
+    }
+  }
+
   async function signUp(email: string, password: string) {
     const auth = getAuth();
     try {
@@ -90,6 +101,7 @@ export const useAuth = () => {
   }
 
   return {
+    getCurrentUserUid,
     signUp,
     signIn,
     signOut,
