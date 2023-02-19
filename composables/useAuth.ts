@@ -21,6 +21,7 @@ export const useAuth = () => {
       response.user.getIdToken().then((idToken) => {
         token.value = idToken;
       });
+      return await navigateTo("/", { replace: true });
     } catch (e) {
       console.error(e);
     }
@@ -33,8 +34,9 @@ export const useAuth = () => {
         .then((userCredential) => {
           userCredential.user
             .getIdToken()
-            .then((idToken) => {
+            .then(async (idToken) => {
               token.value = idToken;
+              await navigateTo("/", { replace: true });
               resolve();
             })
             .catch(reject);
@@ -47,8 +49,9 @@ export const useAuth = () => {
     return await new Promise<void>((resolve, reject) => {
       const auth = getAuth();
       firebaseSignOut(auth)
-        .then(() => {
+        .then(async () => {
           token.value = null;
+          await navigateTo("/login", { replace: true });
           resolve();
         })
         .catch((error) => {
