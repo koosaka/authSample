@@ -16,6 +16,27 @@ const user: UserProperty = reactive({
   is_agreement: false,
 });
 
+const imageToBase64 = (event: any) => {
+  const reader = new FileReader();
+
+  // 選択されたファイルの取得
+  const file = event.target.files[0];
+
+  // ファイルが選択されていればBase64に変換する
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    user.profile_icon = "";
+  }
+
+  // 変換が終わったら実行される
+  reader.onload = () => {
+    if (typeof reader.result === "string") {
+      user.profile_icon = reader.result;
+    }
+  };
+};
+
 const registerUser = async () => {
   signUp(auth, user);
 };
@@ -40,11 +61,10 @@ const registerUser = async () => {
     <label for="other">その他</label>
   </div>
   <input type="date" placeholder="誕生日" v-model="user.birthday" />
-  <input
-    type="text"
-    placeholder="プロフィールアイコン"
-    v-model="user.profile_icon"
-  />
+  <div>
+    <input type="file" @change="imageToBase64" />
+    <img :src="user.profile_icon" />
+  </div>
   <input type="password" placeholder="パスワード" v-model="auth.password" />
   <div>
     <a href="https://menherasenpai.notion.site">利用規約</a

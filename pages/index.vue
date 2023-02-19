@@ -33,7 +33,7 @@ onMounted(async () => {
 <template>
   <div>ようこそ、{{ user.user_name }}さん！</div>
   <div>あなたの登録情報はこちらです。</div>
-  <div>アイコン：{{ user.profile_icon }}</div>
+  <img :src="user.profile_icon" />
   <div>ユーザネーム：{{ user.user_name }}</div>
   <div>性別：{{ user.gender }}</div>
   <div>誕生日：{{ user.birthday }}</div>
