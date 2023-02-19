@@ -18,21 +18,19 @@ definePageMeta({
 const firebaseApp = useState("firebaseApp");
 const { getCurrentUserUid } = useAuth();
 const currentUserUid = getCurrentUserUid();
-const user = reactive({});
+const user = ref({});
 
-const onClick = async () => {
+onMounted(async () => {
   const db: Firestore = getFirestore(firebaseApp.value as FirebaseApp);
-
-  console.log(getCurrentUserUid());
-  const q = query(collection(db, "users"));
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("uid", "==", currentUserUid));
+  // TODO ここをgetDocに書き換える
   const querySnapshot = await getDocs(q);
-  const users = querySnapshot.docs.map((doc) => {
-    const data = doc.data();
-  });
-};
+  user.value = querySnapshot.docs[0].data();
+});
 </script>
 
 <template>
   <button @click="onClick()">ログ</button>
-  <div>ようこそ！</div>
+  <div>ようこそ、{{ user.user_name }}さん！</div>
 </template>
