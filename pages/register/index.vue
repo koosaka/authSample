@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AuthProperty, UserProperty } from "~~/composables/useAuth";
 import FormInput from "../../src/components/molucules/formInput.vue";
+import "~/assets/scss/form.scss";
 
 const { signUp } = useAuth();
 
@@ -46,7 +47,7 @@ const registerUser = async () => {
 <template>
   <div class="form_container">
     <div class="form">
-      <div class="title">アカウントの作成</div>
+      <div class="form_title">アカウントの作成</div>
       <FormInput
         :id="'username'"
         :label="'ユーザネーム'"
@@ -123,10 +124,7 @@ const registerUser = async () => {
 </template>
 
 <style lang="scss">
-.title {
-  font-size: 36px;
-}
-
+// MEMO 以下2つのスタイルはラジオボタン用
 .flex_spacebetween {
   display: flex;
   gap: 0px 36px;
@@ -137,39 +135,16 @@ const registerUser = async () => {
   gap: 0px 4px;
 }
 
-.form_container {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-}
-
-.form {
-  width: 80%;
-  max-width: 600px;
-  min-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 5rem;
-}
-
 .register_button {
-  font-size: 16px;
-  border: none;
-  height: 48px;
   color: #fff;
-  min-width: 90px;
-  font-weight: bold;
-  text-transform: lowercase;
   background-color: #fd5750;
-  border-radius: 4px;
+  height: 48px;
+  min-width: 90px;
+  font-size: 16px;
+  font-weight: bold;
   padding: 6px 16px;
-}
-
-input #file-upload-button {
-  background-color: #262626;
+  border: none;
+  border-radius: 4px;
+  text-transform: lowercase;
 }
 </style>

@@ -9,10 +9,10 @@ const { signOut, token } = useAuth();
     </div>
     <div v-else class="flex_gap">
       <NuxtLink :to="`/login`">
-        <button class="button login">Login</button>
+        <button class="button login">ログイン</button>
       </NuxtLink>
       <NuxtLink :to="`/register`">
-        <button class="button signup">Sign Up</button>
+        <button class="button signup">アカウントの作成</button>
       </NuxtLink>
     </div>
   </div>
