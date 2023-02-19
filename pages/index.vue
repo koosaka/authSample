@@ -28,7 +28,6 @@ const onClick = async () => {
   const querySnapshot = await getDocs(q);
   const users = querySnapshot.docs.map((doc) => {
     const data = doc.data();
-    console.log(data);
   });
 };
 </script>

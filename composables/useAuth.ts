@@ -6,6 +6,22 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+
+export type AuthProperty = {
+  email: string;
+  password: string;
+};
+
+export type UserProperty = {
+  uid?: string;
+  user_name: string;
+  birthday: string;
+  profile_icon: string;
+  gender: number;
+  is_agreement: boolean;
+};
+
 export const useAuth = () => {
   const token = useState<string | null>("token", () => null);
 
@@ -20,19 +36,29 @@ export const useAuth = () => {
     }
   }
 
-  async function signUp(email: string, password: string) {
+  const createUser = async (user: UserProperty) => {
+    const db = getFirestore();
+    const docRef = await addDoc(collection(db, "users"), user);
+  };
+
+  async function signUp(authProperty: AuthProperty, user: UserProperty) {
     const auth = getAuth();
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
-        email,
-        password
+        authProperty.email,
+        authProperty.password
       );
 
-      response.user.getIdToken().then((idToken) => {
-        token.value = idToken;
-      });
-      return await navigateTo("/", { replace: true });
+      if (response.user.uid) {
+        await createUser({ ...user, uid: response.user.uid });
+        response.user.getIdToken().then((idToken) => {
+          token.value = idToken;
+        });
+        return await navigateTo("/", { replace: true });
+      } else {
+        throw new Error("ユーザが正しく作成されませんでした。");
+      }
     } catch (e) {
       console.error(e);
     }
