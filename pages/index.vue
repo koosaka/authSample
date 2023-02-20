@@ -25,11 +25,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="profile_container">
+  <div class="profile_container" id="top_page">
     <div class="profile">
       <div class="profile_title">ようこそ、{{ user.user_name }}さん！</div>
       <div>あなたの登録情報はこちらです。</div>
-      <img :src="user.profile_icon" />
       <div>ユーザネーム：{{ user.user_name }}</div>
       <div>性別：{{ genderMappingsToJapanese[user.gender] }}</div>
       <div>誕生日：{{ user.birthday }}</div>

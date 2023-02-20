@@ -18,7 +18,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="form_container">
+  <div class="form_container" id="login_page">
     <div class="form">
       <div class="form_title">ログイン</div>
       <FormInput
