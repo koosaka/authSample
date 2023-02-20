@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import { FirebaseApp } from "@firebase/app";
 import { genderMappingsToJapanese } from "../constants/gender";
-import {
-  Firestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  doc,
-  getDoc,
-  getFirestore,
-} from "firebase/firestore";
 
 definePageMeta({
   middleware: "auth",
@@ -29,6 +19,9 @@ onMounted(async () => {
     <div class="profile">
       <div class="profile_title">ようこそ、{{ user.user_name }}さん！</div>
       <div>あなたの登録情報はこちらです。</div>
+      <div>
+        <img :src="user.profile_icon" />
+      </div>
       <div>ユーザネーム：{{ user.user_name }}</div>
       <div>性別：{{ genderMappingsToJapanese[user.gender] }}</div>
       <div>誕生日：{{ user.birthday }}</div>

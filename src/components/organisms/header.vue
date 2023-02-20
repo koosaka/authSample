@@ -23,7 +23,8 @@ const { signOut, token } = useAuth();
 </template>
 
 <style lang="scss">
-node_modules\@vue\reactivity\dist\reactivity.cjs.js .header {
+.header {
+  width: 100vw;
   padding: 12px 24px;
 }
 

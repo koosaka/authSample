@@ -7,7 +7,6 @@ type Props = {
 };
 
 const props = defineProps<Props>();
-console.log(props.modelValue);
 const emit = defineEmits(["changeEvent"]);
 
 const changeEvent = (e: any) => {

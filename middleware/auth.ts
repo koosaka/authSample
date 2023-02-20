@@ -1,9 +1,11 @@
 import { useAuth } from "../composables/useAuth";
 
 export default defineNuxtRouteMiddleware(async () => {
-  const { checkAuthState, token } = useAuth();
-  await checkAuthState();
-  if (!token.value) {
-    return await navigateTo("/login", { replace: true });
+  if (!process.server) {
+    const { checkAuthState, token } = useAuth();
+    await checkAuthState();
+    if (!token.value) {
+      return await navigateTo("/register", { replace: true });
+    }
   }
 });
