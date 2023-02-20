@@ -7,7 +7,14 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 
 export type AuthProperty = {
   email: string;
@@ -42,6 +49,16 @@ export const useAuth = () => {
     const db = getFirestore(app);
     const docRef = await addDoc(collection(db, "users"), user);
   };
+
+  async function getCurrentUser() {
+    const currentUserUid = getCurrentUserUid();
+    const db = getFirestore(app);
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("uid", "==", currentUserUid));
+    // TODO ここをgetDocに書き換える
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs[0].data();
+  }
 
   async function signUp(authProperty: AuthProperty, user: UserProperty) {
     const auth = getAuth(app);
@@ -129,6 +146,7 @@ export const useAuth = () => {
 
   return {
     getCurrentUserUid,
+    getCurrentUser,
     signUp,
     signIn,
     signOut,
