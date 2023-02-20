@@ -1,3 +1,4 @@
+import { FirebaseApp } from "firebase/app";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -26,7 +27,7 @@ export const useAuth = () => {
   const token = useState<string | null>("token", () => null);
 
   function getCurrentUserUid() {
-    const auth = getAuth();
+    const auth = getAuth(app);
     const user = auth.currentUser;
 
     if (user !== null) {
@@ -35,14 +36,15 @@ export const useAuth = () => {
       return {};
     }
   }
+  const app = useState("firebaseApp").value as FirebaseApp;
 
   const createUser = async (user: UserProperty) => {
-    const db = getFirestore();
+    const db = getFirestore(app);
     const docRef = await addDoc(collection(db, "users"), user);
   };
 
   async function signUp(authProperty: AuthProperty, user: UserProperty) {
-    const auth = getAuth();
+    const auth = getAuth(app);
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -66,7 +68,7 @@ export const useAuth = () => {
 
   async function signIn(email: string, password: string) {
     return await new Promise<void>((resolve, reject) => {
-      const auth = getAuth();
+      const auth = getAuth(app);
       return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           userCredential.user
@@ -84,7 +86,7 @@ export const useAuth = () => {
 
   async function signOut() {
     return await new Promise<void>((resolve, reject) => {
-      const auth = getAuth();
+      const auth = getAuth(app);
       firebaseSignOut(auth)
         .then(async () => {
           token.value = null;
@@ -101,7 +103,7 @@ export const useAuth = () => {
     return await new Promise<void>((resolve, reject) => {
       // client only
       if (process.server) return resolve();
-      const auth = getAuth();
+      const auth = getAuth(app);
       onAuthStateChanged(
         auth,
         (user) => {

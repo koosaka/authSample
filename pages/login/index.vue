@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { AuthProperty } from "../../composables/useAuth";
 import FormInput from "../../src/components/molucules/formInput.vue";
 import Button from "../../src/components/atom/button.vue";
@@ -36,7 +35,7 @@ const submit = async () => {
         :model-value="auth.password"
         @changeEvent="auth.password = $event"
       />
-      <Button class="margin_top_24" :text="'ログイン'" @click="submit" />
+      <Button class="margin_top_24" :text="'ログイン'" @click="submit()" />
       <div>
         アカウントをお持ちでない方は<NuxtLink to="/register" class="link"
           >こちら</NuxtLink

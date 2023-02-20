@@ -11,24 +11,24 @@ import {
   getDoc,
   getFirestore,
 } from "firebase/firestore";
+import { db } from "../plugins/firebase.client";
 
 definePageMeta({
   middleware: "auth",
 });
 
-const firebaseApp = useState("firebaseApp");
 const { getCurrentUserUid } = useAuth();
 const currentUserUid = getCurrentUserUid();
 const user = ref({});
+const app = useState("firebaseApp").value as FirebaseApp;
 
 onMounted(async () => {
-  const db: Firestore = getFirestore(firebaseApp.value as FirebaseApp);
+  const db = getFirestore(app);
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("uid", "==", currentUserUid));
   // TODO ここをgetDocに書き換える
   const querySnapshot = await getDocs(q);
   user.value = querySnapshot.docs[0].data();
-  console.log(user.value);
 });
 </script>
 
