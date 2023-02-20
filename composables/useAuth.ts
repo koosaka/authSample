@@ -74,7 +74,7 @@ export const useAuth = () => {
         response.user.getIdToken().then((idToken) => {
           token.value = idToken;
         });
-        return await navigateTo("/", { replace: true });
+        return await navigateTo("/mypage", { replace: true });
       } else {
         throw new Error("ユーザが正しく作成されませんでした。");
       }
@@ -92,7 +92,7 @@ export const useAuth = () => {
             .getIdToken()
             .then(async (idToken) => {
               token.value = idToken;
-              await navigateTo("/", { replace: true });
+              await navigateTo("/mypage", { replace: true });
               resolve();
             })
             .catch(reject);
